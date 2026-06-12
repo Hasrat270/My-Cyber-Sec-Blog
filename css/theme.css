@@ -88,21 +88,20 @@
     }
 
     /* Matrix "God Mode" Theme - Activated via Easter Egg Flag submission */
+    /* Matrix "God Mode" Theme - Activated via Easter Egg Flag submission */
     html[data-theme="god-mode"] {
         color-scheme: dark;
-        --bg-primary: #000000;
-        --bg-secondary: #050b05;
-        --bg-tertiary: #0a140a;
-        --text-primary: #00ff41;
-        --text-secondary: #00aa30;
-        --accent-color: #00ff41;
-        --accent-secondary: #39ff14;
-        --accent-glow: rgba(0, 255, 65, 0.25);
-        --border-color: #00ff41;
-        --card-glow: rgba(0, 255, 65, 0.02);
-        --scrollbar-track: #000000;
-        --scrollbar-thumb: #00aa30;
-        
-        font-family: 'JetBrains Mono', monospace !important;
+        --bg-primary: #030712;
+        --bg-secondary: #0b1329;
+        --bg-tertiary: #111c44;
+        --text-primary: #f3f4f6;
+        --text-secondary: #9ca3af;
+        --accent-color: #00f0ff;
+        --accent-secondary: #8b5cf6;
+        --accent-glow: rgba(0, 240, 255, 0.15);
+        --border-color: rgba(255, 255, 255, 0.08);
+        --card-glow: rgba(0, 240, 255, 0.02);
+        --scrollbar-track: #030712;
+        --scrollbar-thumb: #111c44;
     }
 }
