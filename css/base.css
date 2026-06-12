@@ -1,0 +1,94 @@
+/* CSS Layers Definition */
+@layer base, theme, components, utilities;
+
+@layer base {
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    html {
+        scroll-behavior: smooth;
+        font-size: 16px;
+    }
+
+    body {
+        font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        font-size: 1rem;
+        line-height: 1.6;
+        color: var(--text-primary);
+        background-color: var(--bg-primary);
+        transition: background-color 0.4s ease, color 0.4s ease;
+        overflow-x: hidden;
+        position: relative;
+        min-height: 100vh;
+    }
+
+    /* Monospace elements */
+    code, pre, .pgp-code, .terminal-body, .tech-tag, .ascii-banner {
+        font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', Courier, monospace;
+    }
+
+    /* Focus Management */
+    :focus-visible {
+        outline: 2px solid var(--accent-color);
+        outline-offset: 4px;
+    }
+
+    /* Selection */
+    ::selection {
+        background-color: var(--accent-color);
+        color: var(--bg-primary);
+    }
+
+    /* Accessible Scrollbars */
+    :root {
+        scrollbar-width: thin;
+        scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+    }
+
+    /* Legacy scrollbar fallbacks */
+    @supports not (scrollbar-color: auto) {
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--scrollbar-track);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--scrollbar-thumb);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-color);
+        }
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: var(--text-primary);
+        font-weight: 700;
+        line-height: 1.25;
+        text-wrap: balance;
+    }
+
+    p {
+        text-wrap: pretty;
+        color: var(--text-secondary);
+        margin-bottom: 1rem;
+    }
+
+    a {
+        color: var(--accent-color);
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+
+    a:hover {
+        color: var(--accent-secondary);
+    }
+}

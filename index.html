@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Hasrat // Offensive Security Student & Researcher</title>
+    <meta name="description" content="Portfolio and blog of Hasrat, an offensive security student. Writeups on CTFs, OSCP, web security, and custom malware analysis.">
+    <meta name="keywords" content="offensive security, cyber security, portfolio, blog, writeups, OSCP, CTF, exploit development, red teaming">
+    
+    <!-- Open Graph / Social -->
+    <meta property="og:title" content="Hasrat // Offensive Security Student & Researcher">
+    <meta property="og:description" content="Portfolio and blog of Hasrat. Explores exploits, CTFs, and red teaming methodologies.">
+    <meta property="og:type" content="website">
+    
+    <!-- Color Scheme & FOUC Prevention -->
+    <meta name="color-scheme" content="light dark">
+    <script>
+        {
+            const theme = localStorage.getItem("color-scheme") || "dark";
+            document.documentElement.dataset.theme = theme;
+            document.querySelector('meta[name="color-scheme"]').content = theme === "dark" ? "dark" : "light";
+        }
+    </script>
+
+    <!-- Google Fonts & FontAwesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Syntax Highlighting for Writeups -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/tokyo-night-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    
+    <!-- Custom CSS (Split Modularly) -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/utilities.css">
+</head>
+<body>
+
+
+    <!-- Navigation Header -->
+    <header class="main-header" id="site-header">
+        <div class="header-container">
+            <a href="#" class="logo" id="header-logo">
+                <span class="prompt-symbol">&gt;_</span> HASRAT<span class="accent-dot">.</span>SEC
+            </a>
+            
+            <nav class="main-nav" aria-label="Main Navigation">
+                <ul class="nav-list">
+                    <li><a href="#terminal-section" class="nav-link"><i class="fa-solid fa-terminal"></i> Terminal</a></li>
+                    <li><a href="#about-section" class="nav-link"><i class="fa-solid fa-user-ninja"></i> Bio</a></li>
+                    <li><a href="#blog-section" class="nav-link"><i class="fa-solid fa-book-open"></i> Writeups</a></li>
+                    <li><a href="#projects-section" class="nav-link"><i class="fa-solid fa-code"></i> Arsenal</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle color theme" title="Switch Theme">
+                    <i class="fa-solid fa-moon theme-icon-dark"></i>
+                    <i class="fa-solid fa-sun theme-icon-light"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section with Interactive Terminal -->
+    <section class="hero-section" id="terminal-section">
+        <div class="hero-container">
+            <div class="hero-intro">
+                <span class="badge cyber-badge">OFFENSIVE SECURITY STUDENT</span>
+                <h1 class="hero-title">Breaking things<br>to make them <span class="text-glow">secure</span>.</h1>
+                <p class="hero-subtitle">
+                    Studying exploit development, Active Directory penetration testing, and red teaming methodologies. Exploring the border between logic and system abuse.
+                </p>
+                <div class="hero-cta-group">
+                    <a href="#blog-section" class="btn btn-primary"><i class="fa-solid fa-shield-halved"></i> Read Writeups</a>
+                    <a href="#projects-section" class="btn btn-secondary"><i class="fa-solid fa-box-archive"></i> View Arsenal</a>
+                </div>
+            </div>
+
+            <!-- Terminal Simulator -->
+            <div class="terminal-wrapper" id="terminal-widget">
+                <div class="terminal-header">
+                    <div class="terminal-buttons">
+                        <span class="btn-dot close-dot" aria-hidden="true"></span>
+                        <span class="btn-dot min-dot" aria-hidden="true"></span>
+                        <span class="btn-dot max-dot" aria-hidden="true"></span>
+                    </div>
+                    <div class="terminal-title">guest@hasrat-sec: ~/portal</div>
+                    <div class="terminal-actions">
+                        <button class="terminal-btn-action" id="terminal-clear-btn" title="Clear Console" aria-label="Clear Terminal"><i class="fa-solid fa-trash-can"></i></button>
+                    </div>
+                </div>
+                <div class="terminal-body" id="terminal-console">
+                    <div class="terminal-output" id="terminal-output-container">
+                        <!-- Auto-typed on load -->
+                        <div class="terminal-line banner-line">
+<pre class="ascii-banner">
+██╗  ██╗ █████╗ ███████╗██████╗  █████╗ ████████╗
+██║  ██║██╔══██╗██╔════╝██╔══██╗██╔══██╗╚══██╔══╝
+███████║███████║███████╗██████╔╝███████║   ██║   
+██╔══██║██╔══██║╚════██║██╔══██╗██╔══██║   ██║   
+██║  ██║██║  ██║███████║██║  ██║██║  ██║   ██║   
+╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   
+</pre>
+                        </div>
+                        <div class="terminal-line text-muted">System Initialized. Active Session: guest-shell.</div>
+                        <div class="terminal-line">Type <span class="text-accent">help</span> to view list of available operations.</div>
+                        <div class="terminal-line">&nbsp;</div>
+                    </div>
+                    
+                    <form class="terminal-input-line" id="terminal-form">
+                        <span class="terminal-prompt">guest@hasrat-sec:~$</span>
+                        <input type="text" id="terminal-input" autocomplete="off" autofocus aria-label="Terminal Command Input" placeholder="type help...">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bio / About Section -->
+    <section class="about-section scroll-section" id="about-section">
+        <div class="section-container">
+            <h2 class="section-title"><span class="number-prefix">01.</span> About Me</h2>
+            <div class="about-grid">
+                <div class="about-content">
+                    <p>
+                        Hello! I am Hasrat, a cybersecurity student focusing on the offensive security spectrum. I enjoy digging deep into memory corruption exploits, scripting custom security testing tools, and breaking complex Active Directory trust boundaries.
+                    </p>
+                    <p>
+                        My journey consists of hands-on training, reproducing CVEs, and building open-source offensive scripts. I believe in documenting every single detail of my research—because sharing writeups helps the community level up together.
+                    </p>
+                    
+                    <h3 class="subsection-title">Core Competencies</h3>
+                    <ul class="skills-list">
+                        <li><i class="fa-solid fa-circle-nodes text-accent"></i> Active Directory Attacks</li>
+                        <li><i class="fa-solid fa-code text-accent"></i> Exploit Dev (x86/x64 assembly)</li>
+                        <li><i class="fa-solid fa-bug text-accent"></i> Web App Pentesting (OWASP Top 10)</li>
+                        <li><i class="fa-solid fa-gears text-accent"></i> Malware Analysis & Evasion</li>
+                        <li><i class="fa-solid fa-terminal text-accent"></i> Python, Go & Bash Scripting</li>
+                        <li><i class="fa-solid fa-network-wired text-accent"></i> Network Infrastructure Audits</li>
+                    </ul>
+                </div>
+                
+                <div class="about-stats-card">
+                    <div class="card-glow-border"></div>
+                    <div class="stats-header">
+                        <i class="fa-solid fa-chart-line stats-icon"></i>
+                        <h3>Lab & Platform Progress</h3>
+                    </div>
+                    <div class="stats-body">
+                        <div class="stat-item">
+                            <span class="stat-label">Hack The Box Rank</span>
+                            <div class="stat-value text-accent" id="stat-htb-rank">Pro Hacker</div>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">HTB System Owns</span>
+                            <div class="stat-value" id="stat-htb-owns">45+</div>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">TryHackMe Level</span>
+                            <div class="stat-value text-accent" id="stat-thm-rank">Level 9</div>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">THM Points</span>
+                            <div class="stat-value" id="stat-thm-points">24,000+</div>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">PortSwigger Labs Solved</span>
+                            <div class="stat-value" id="stat-portswigger-count">82</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Blog & Writeups Section -->
+    <section class="blog-section scroll-section" id="blog-section">
+        <div class="section-container">
+            <h2 class="section-title"><span class="number-prefix">02.</span> Security Writeups & Research</h2>
+            
+            <!-- Filter Bar -->
+            <div class="blog-filter-bar">
+                <div class="search-input-wrapper">
+                    <i class="fa-solid fa-magnifying-glass search-icon" aria-hidden="true"></i>
+                    <input type="text" id="blog-search" placeholder="Search writeups by keyword..." aria-label="Search blog writeups">
+                </div>
+                
+                <div class="filter-categories" role="group" aria-label="Filter blog categories">
+                    <button class="filter-btn active" data-category="all">All</button>
+                    <button class="filter-btn" data-category="active-directory">Active Directory</button>
+                    <button class="filter-btn" data-category="exploit-dev">Exploit Dev</button>
+                    <button class="filter-btn" data-category="web-sec">Web Security</button>
+                    <button class="filter-btn" data-category="ctf">CTFs</button>
+                </div>
+            </div>
+
+            <!-- Blog Post Grid -->
+            <div class="blog-grid" id="blog-posts-grid">
+                <!-- Loaded dynamically by app.js -->
+            </div>
+
+            <!-- Load More Container -->
+            <div class="blog-load-more-container" id="blog-load-more-wrapper" style="display: none; justify-content: center; margin-top: 3rem;">
+                <button class="btn btn-secondary" id="blog-load-more-btn">
+                    <i class="fa-solid fa-plus"></i> Load More Writeups
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects / Arsenal Section -->
+    <section class="projects-section scroll-section" id="projects-section">
+        <div class="section-container">
+            <h2 class="section-title"><span class="number-prefix">03.</span> Open Source Arsenal</h2>
+            <p class="section-subtitle">Custom scripts, security assessment tooling, and proofs-of-concept developed during research.</p>
+            
+            <div class="projects-grid" id="github-projects-grid">
+                <!-- Loaded dynamically from GitHub API -->
+                <div class="project-loader-placeholder" style="grid-column: 1 / -1; text-align: center; padding: 2rem; font-family: var(--font-mono); color: var(--text-secondary);">
+                    <i class="fa-solid fa-spinner fa-spin"></i> Retrieving cyber security projects from GitHub...
+                </div>
+            </div>
+
+            <!-- GitHub Load More Container -->
+            <div class="projects-load-more-container" id="github-load-more-wrapper" style="display: none; justify-content: center; margin-top: 3rem;">
+                <button class="btn btn-secondary" id="github-load-more-btn">
+                    <i class="fa-solid fa-plus"></i> Load More Projects
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reading View Drawer (Slide-out Panel) -->
+    <div class="reader-drawer" id="reader-drawer" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="drawer-overlay" id="drawer-close-overlay"></div>
+        <div class="drawer-content">
+            <div class="drawer-header">
+                <div class="drawer-header-container">
+                    <button class="btn btn-close" id="drawer-close-btn" aria-label="Close reading view"><i class="fa-solid fa-xmark"></i> Close</button>
+                    <div class="drawer-actions">
+                        <button class="theme-toggle-btn" id="drawer-theme-toggle" title="Toggle Reader Theme" aria-label="Toggle Reader Theme">
+                            <i class="fa-solid fa-moon theme-icon-dark"></i>
+                            <i class="fa-solid fa-sun theme-icon-light"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <article class="drawer-body" id="drawer-article-content">
+                <!-- Dynamically populated -->
+            </article>
+        </div>
+    </div>
+
+    <!-- Footer with PGP and CTF Submit -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="#" class="logo footer-logo">
+                        <span class="prompt-symbol">&gt;_</span> HASRAT<span class="accent-dot">.</span>SEC
+                    </a>
+                    <p class="footer-tagline">Offensive Security Student & Researcher focusing on exploit development and red teaming.</p>
+                    <div class="footer-pgp">
+                        <span class="pgp-label"><i class="fa-solid fa-key"></i> PGP Fingerprint:</span>
+                        <span class="pgp-wrapper">
+                            <code class="pgp-code" id="pgp-fingerprint">C0DE E999 5AF3 045F 8899 BBDC 1234 AABB 5566 7788</code> 
+                            <button class="pgp-copy-btn" id="pgp-copy-btn" title="Copy Fingerprint" aria-label="Copy PGP Fingerprint"><i class="fa-regular fa-copy"></i></button>
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="footer-ctf-card">
+                    <form class="ctf-submit-form" id="ctf-flag-form">
+                        <label for="ctf-flag-input" class="ctf-label"><i class="fa-solid fa-flag text-glow-red"></i> Captured a Flag?</label>
+                        <p class="ctf-hint-text">Found a secret flag? Submit it here to unlock god-mode.</p>
+                        <div class="ctf-input-group">
+                            <input type="text" id="ctf-flag-input" placeholder="FLAG{...}" required aria-label="CTF Flag Input">
+                            <button type="submit" class="btn btn-ctf" id="ctf-submit-btn">Submit</button>
+                        </div>
+                        <span class="ctf-feedback" id="ctf-feedback-msg" role="status"></span>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 Hasrat. All rights secured.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/writeups-data.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/drawer.js"></script>
+    <script src="js/ctf.js"></script>
+    <script src="js/terminal.js"></script>
+    <script src="js/blog.js"></script>
+    <script src="js/stats.js"></script>
+    <script src="js/github.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
