@@ -66,6 +66,10 @@ function openReaderDrawer(postId) {
         <div class="post-content">
             ${post.content}
         </div>
+        <div class="post-comments-section">
+            <h3 class="comments-title"><i class="fa-regular fa-comments"></i> Discussion & Comments</h3>
+            <div class="giscus" id="giscus-comments-container"></div>
+        </div>
     `;
 
     // Open drawer
@@ -108,4 +112,44 @@ function openReaderDrawer(postId) {
             window.hljs.highlightElement(el);
         });
     }
+
+    // Load Giscus Comments
+    loadGiscusComments();
+}
+
+function loadGiscusComments() {
+    const container = document.getElementById("giscus-comments-container");
+    if (!container) return;
+    container.innerHTML = "";
+
+    const script = document.createElement("script");
+    script.src = "https://giscus.app/client.js";
+    
+    script.setAttribute("data-repo", "Hasrat270/My-Cyber-Sec-Blog");
+    script.setAttribute("data-repo-id", "R_kgDOS46uYw");
+    script.setAttribute("data-category", "Announcements");
+    script.setAttribute("data-category-id", "DIC_kwDOS46uY84C_Cap");
+    
+    script.setAttribute("data-mapping", "pathname");
+    script.setAttribute("data-strict", "0");
+    script.setAttribute("data-reactions-enabled", "1");
+    script.setAttribute("data-emit-metadata", "0");
+    script.setAttribute("data-input-position", "bottom");
+    
+    // Align comment theme with active portfolio theme (theme-matching colors)
+    const currentTheme = document.documentElement.dataset.theme || "dark";
+    let giscusTheme = "dark_dimmed";
+    if (currentTheme === "light") {
+        giscusTheme = "light";
+    } else if (currentTheme === "god-mode") {
+        giscusTheme = "noborder_dark";
+    }
+    script.setAttribute("data-theme", giscusTheme);
+    
+    script.setAttribute("data-lang", "en");
+    script.setAttribute("data-loading", "lazy");
+    script.setAttribute("crossorigin", "anonymous");
+    script.async = true;
+
+    container.appendChild(script);
 }

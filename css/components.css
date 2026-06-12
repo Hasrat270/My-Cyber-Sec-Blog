@@ -1332,4 +1332,34 @@
         20%, 60% { transform: translateX(-6px); }
         40%, 80% { transform: translateX(6px); }
     }
+
+    /* ---------------------------------------------------- */
+    /* Post Comments Section */
+    /* ---------------------------------------------------- */
+    .post-comments-section {
+        margin-top: 5rem;
+        padding-top: 3rem;
+        padding-bottom: 6rem; /* Comfortable scroll-up buffer */
+        border-top: 1px dashed var(--border-color);
+        max-width: 850px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .comments-title {
+        font-size: 1.4rem;
+        font-weight: 800;
+        margin-bottom: 2.5rem;
+        color: var(--text-primary);
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        border-left: 3px solid var(--accent-secondary);
+        padding-left: 0.75rem;
+    }
+
+    .giscus {
+        min-height: 150px;
+        width: 100%;
+    }
 }
