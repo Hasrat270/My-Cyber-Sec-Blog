@@ -108,6 +108,7 @@ class TerminalSimulator {
                 this.writeLine("  skills       - View competencies in cyber security.");
                 this.writeLine("  cat [id]     - View writeup (e.g. 'cat 1' to view Constrained Delegation).");
                 this.writeLine("  theme [name] - Switch visual theme ('light', 'dark', 'matrix').");
+                this.writeLine("  rot13 [text] - Decrypt or encrypt a ROT13 cipher string.");
                 this.writeLine("  clear        - Clear console output.");
                 this.writeLine("  flag [flag]  - Submit a CTF flag (e.g. flag FLAG{...}).");
                 break;
@@ -177,6 +178,18 @@ class TerminalSimulator {
                     } else {
                         this.writeLine(`Unknown theme: '${args[1]}'. Try light or dark.`);
                     }
+                }
+                break;
+            case "rot13":
+            case "decrypt":
+                if (!args[1]) {
+                    this.writeLine("Usage: rot13 [ciphertext] or decrypt [ciphertext]");
+                } else {
+                    const cipherText = args.slice(1).join(" ");
+                    const decrypted = cipherText.replace(/[a-zA-Z]/g, function (c) {
+                        return String.fromCharCode((c <= "Z" ? 90 : 122) >= (c = c.charCodeAt(0) + 13) ? c : c - 26);
+                    });
+                    this.writeLine(`[+] Decrypted output: ${decrypted}`, "text-accent");
                 }
                 break;
             case "flag":
