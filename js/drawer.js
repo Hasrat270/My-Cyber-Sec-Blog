@@ -136,20 +136,17 @@ function loadGiscusComments() {
     script.setAttribute("data-emit-metadata", "0");
     script.setAttribute("data-input-position", "bottom");
     
-    // Align comment theme with active portfolio theme (theme-matching colors)
+    // Align comment theme with active portfolio theme
     const currentTheme = document.documentElement.dataset.theme || "dark";
     let giscusTheme = "dark_dimmed";
     if (currentTheme === "light") {
         giscusTheme = "light";
     } else if (currentTheme === "god-mode") {
-        giscusTheme = "noborder_dark";
+        giscusTheme = "transparent_dark";
     }
     script.setAttribute("data-theme", giscusTheme);
     
     script.setAttribute("data-lang", "en");
-    script.setAttribute("data-loading", "lazy");
-    script.setAttribute("crossorigin", "anonymous");
-    script.async = true;
 
     container.appendChild(script);
 }
