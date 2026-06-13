@@ -339,10 +339,119 @@ p.interactive()</code></pre>
 
             <h3>5. Modern Mitigations</h3>
             <ul>
-                <li><strong>Format String checking:</strong> Modern compilers check for static format strings (e.g. <code>-Wformat -Wformat-security</code> flags fail build if unsafe printf is used).</li>
-                <li><strong>FORTIFY_SOURCE:</strong> Checks at compile time if format strings are located in read-only memory blocks.</li>
-                <li><strong>RELRO (Relocation Read-Only):</strong> Marks the Global Offset Table (GOT) as read-only after resolver initialization, preventing arbitrary GOT overwriting.</li>
             </ul>
+        `
+    },
+    "linux-privilege-escalation-checklist": {
+        id: 5,
+        title: "Linux Privilege Escalation: The Ultimate Modern Enumeration Checklist & Techniques",
+        date: "June 14, 2026",
+        readTime: "16 min read",
+        category: "ctf",
+        tags: ["Linux", "PrivEsc", "CTFs", "Enumeration"],
+        summary: "A comprehensive and modernized checklist for Linux Privilege Escalation, covering everything from basic system enumeration to advanced techniques like capabilities, Docker group abuse, and modern automated tools.",
+        content: `
+            <p>Privilege escalation on Linux is often less about finding a shiny new 0-day exploit and more about meticulous enumeration. By identifying misconfigurations, weak permissions, and outdated software, attackers can systematically elevate their privileges. This post takes a foundational checklist and modernizes it with techniques relevant to today's CTF environments and real-world penetration tests.</p>
+
+            <h3>1. The Foundation: Automated Enumeration Tools</h3>
+            <p>Before diving into manual enumeration, it's crucial to acknowledge the power of modern automated scripts. While manual checks are vital for stealth or specific environments, tools like these save immense time:</p>
+            <ul>
+                <li><strong>LinPEAS (Linux Privilege Escalation Awesome Script):</strong> The gold standard for automated enumeration. It highlights potential vulnerabilities using a color-coded system.</li>
+                <li><strong>pspy (Process Spy):</strong> An incredibly useful tool to monitor processes without needing root permissions. It hooks into <code>inotify</code> and reads <code>/proc</code> to catch cron jobs or background scripts executing in real-time.</li>
+            </ul>
+
+            <h3>2. Modern System and Network Enumeration</h3>
+            <p>Older checklists rely heavily on deprecated net-tools. Modern Linux distributions use the <code>iproute2</code> suite.</p>
+            
+            <h4>System Information</h4>
+            <pre><code class="language-bash">uname -a               # Kernel version (Check for Dirty COW, Dirty Pipe)
+cat /etc/issue         # OS Release info
+cat /etc/os-release    # Detailed OS info
+lscpu                  # CPU architecture
+hostname               # Target hostname</code></pre>
+
+            <h4>Network Information</h4>
+            <pre><code class="language-bash">ip a                   # Active network interfaces (Replaces ifconfig)
+ip route               # Current routing table (Replaces route -n)
+ip neigh               # ARP cache (Replaces arp -a)
+ss -tulpn              # Active TCP/UDP listening ports (Replaces netstat)
+cat /etc/resolv.conf   # DNS resolvers</code></pre>
+
+            <h3>3. User and Group Enumeration</h3>
+            <p>Identifying who you are, who else is on the system, and what groups you belong to is paramount. Certain group memberships are instant root.</p>
+
+            <pre><code class="language-bash">id                     # Current user UID/GID and groups
+cat /etc/passwd        # List all users
+cat /etc/shadow        # Can you read the shadow file? (Instant win if true)
+lastlog                # Recent logins
+w                      # Currently logged-in users</code></pre>
+
+            <h4>High-Value Group Memberships</h4>
+            <p>If your user belongs to specific groups, privilege escalation is trivial:</p>
+            <ul>
+                <li><strong>docker:</strong> Users in the docker group can spawn containers mapping the host's root filesystem. <code>docker run -v /:/mnt --rm -it alpine chroot /mnt sh</code></li>
+                <li><strong>lxd / lxc:</strong> Similar to docker, LXD containers can be used to mount the host filesystem and escalate privileges.</li>
+                <li><strong>disk / adm:</strong> Access to raw disk blocks or sensitive logs.</li>
+            </ul>
+
+            <h3>4. Sudo and Execution Privileges</h3>
+            <p>The <code>sudo</code> command allows users to run programs as other users (typically root). Checking <code>sudo</code> permissions is a mandatory step.</p>
+
+            <pre><code class="language-bash">sudo -l                # List commands allowed via sudo</code></pre>
+
+            <p>When reviewing <code>sudo -l</code> output, look for:</p>
+            <ul>
+                <li><strong>NOPASSWD:</strong> Commands that can be run without entering a password. Check <a href="https://gtfobins.github.io/" target="_blank" rel="noopener">GTFOBins</a> to see if the binary can spawn a shell.</li>
+                <li><strong>LD_PRELOAD / LD_LIBRARY_PATH:</strong> If the <code>env_keep</code> option preserves these variables, you can inject a malicious shared object (.so) when running a sudo command.</li>
+                <li><strong>Sudo Version Vulnerabilities:</strong> Check <code>sudo -V</code>. Older versions are vulnerable to CVE-2019-14287 (User ID -1) or CVE-2021-3156 (Baron Samedit).</li>
+            </ul>
+
+            <h3>5. Misconfigured File Permissions</h3>
+            <p>Finding files that have incorrect permissions—whether they are world-writable or execute with elevated privileges—is a classic escalation vector.</p>
+
+            <h4>SUID and SGID Binaries</h4>
+            <p>SUID (Set Owner User ID) binaries execute with the permissions of the file owner. If the owner is root, and the binary can be abused to read files or execute commands, it's a critical flaw.</p>
+            <pre><code class="language-bash">find / -perm -u=s -type f 2&gt;/dev/null  # Find SUID binaries
+find / -perm -g=s -type f 2&gt;/dev/null  # Find SGID binaries</code></pre>
+
+            <h4>Capabilities</h4>
+            <p>Linux capabilities divide the privileges of root into distinct units. Sometimes administrators use capabilities instead of SUID bits, which are easily missed by standard checks.</p>
+            <pre><code class="language-bash">getcap -r / 2&gt;/dev/null                # Recursively search for capabilities</code></pre>
+            <p>For example, <code>cap_setuid</code> on Python allows you to spawn a root shell.</p>
+
+            <h4>World-Writable Files and Folders</h4>
+            <pre><code class="language-bash">find / -type d -perm -0002 2&gt;/dev/null # World-writable directories
+find / -type f -perm -0002 2&gt;/dev/null # World-writable files</code></pre>
+
+            <h3>6. Cron Jobs, Systemd Timers, and Scheduled Tasks</h3>
+            <p>Tasks scheduled to run as root are prime targets. If you can modify the script being executed, you control the execution.</p>
+
+            <pre><code class="language-bash">cat /etc/crontab                       # System-wide crontab
+ls -la /etc/cron.*                     # Cron scripts (hourly, daily, etc.)
+find /etc/cron* -type f -perm -o+w     # World-writable cron scripts
+systemctl list-timers --all            # List systemd timers</code></pre>
+
+            <p>Also, check for <strong>wildcard injection</strong> in cron jobs. If a root cron job executes <code>tar *</code> in a directory you control, you can create files with specific names (e.g., <code>--checkpoint-action=exec=sh shell.sh</code>) to execute arbitrary commands.</p>
+
+            <h3>7. Interesting Files and Credentials</h3>
+            <p>Always search for lingering credentials, configuration files, and keys.</p>
+
+            <pre><code class="language-bash"># SSH Keys
+find / -name id_rsa 2&gt;/dev/null
+find / -name authorized_keys 2&gt;/dev/null
+
+# History Files
+find / -name .bash_history -type f 2&gt;/dev/null
+cat ~/.bash_history
+
+# Configuration and Passwords
+grep -Ri "password" /etc/*.conf 2&gt;/dev/null
+cat /etc/NetworkManager/system-connections/* | grep -E "^id|^psk"</code></pre>
+
+            <h3>8. NFS Root Squashing</h3>
+            <p>If Network File System (NFS) is in use, check the exports file. If <code>no_root_squash</code> is present for a writable share, an attacker can mount the share locally, create an SUID binary, and execute it on the target system to gain root.</p>
+
+            <pre><code class="language-bash">cat /etc/exports | grep no_root_squash</code></pre>
         `
     }
 };
