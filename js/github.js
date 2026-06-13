@@ -99,7 +99,7 @@ async function fetchGithubProjects() {
             
             // Filter security repos
             const keywords = /(security|pentest|exploit|payload|cve|portswigger|burp|hacking|vuln|rop|attack|relay|reverse|malware|bypass|kali-linux)/i;
-            const blacklist = /(hasrat|mock|DSA|utility|travel|tea|uni|solar|page|react|parallax|web|mastery|mern|interview|Body_mass_index|CSS-Card|CSS_Card|Daily_Challenges_Tracking_Site|Form-Challenge|Git|Github-Basics|Git-Preparation|HTML-Forms|My-Portfolio|skills-copilot-codespaces-vscode|Python_Course)/i;
+            const blacklist = /(hasrat|mock|DSA|utility|travel|tea|uni|solar|page|react|parallax|web|mastery|mern|interview|Body_mass_index|CSS-Card|CSS_Card|Daily_Challenges_Tracking_Site|Form-Challenge|Git|Github-Basics|Git-Preparation|HTML-Forms|My-Portfolio|skills-copilot-codespaces-vscode|Python_Course|My-Cyber-Sec-Blog)/i;
             fetchedSecurityRepos = repos.filter(repo => {
                 const nameMatch = keywords.test(repo.name);
                 const descMatch = repo.description ? keywords.test(repo.description) : false;
