@@ -9,10 +9,14 @@ function initReaderDrawer() {
     const closeOverlay = document.getElementById("drawer-close-overlay");
     const themeBtn = document.getElementById("drawer-theme-toggle");
 
+    // Store original title to restore on close
+    const originalTitle = document.title;
+
     // Close handlers
     function closeDrawer() {
         drawer.setAttribute("aria-hidden", "true");
         document.body.style.overflow = ""; // restore scroll
+        document.title = originalTitle; // restore tab title
     }
 
     if (closeBtn) closeBtn.addEventListener("click", closeDrawer);
@@ -71,6 +75,9 @@ function openReaderDrawer(postId) {
             <div class="giscus" id="giscus-comments-container"></div>
         </div>
     `;
+
+    // Set dynamic tab title to current post
+    document.title = `${post.title} // Hasrat.SEC`;
 
     // Open drawer
     drawer.setAttribute("aria-hidden", "false");
