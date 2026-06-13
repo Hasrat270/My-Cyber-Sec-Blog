@@ -42,6 +42,8 @@ function initReaderDrawer() {
         drawer.setAttribute("aria-hidden", "true");
         document.body.style.overflow = ""; // restore scroll
         document.title = originalTitle; // restore tab title
+        // Clear URL hash so refresh doesn't reopen drawer
+        history.replaceState(null, "", window.location.pathname + window.location.search);
     }
 
     if (closeBtn) closeBtn.addEventListener("click", closeDrawer);
@@ -103,6 +105,9 @@ function openReaderDrawer(postId) {
 
     // Set dynamic tab title to current post
     document.title = `${post.title} | Hasrat Blog`;
+
+    // Persist post in URL hash so refresh restores it
+    history.replaceState(null, "", `#post-${postId}`);
 
     // Open drawer
     drawer.setAttribute("aria-hidden", "false");

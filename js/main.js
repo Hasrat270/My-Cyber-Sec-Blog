@@ -16,8 +16,16 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // 4. Initialize reader drawer
     initReaderDrawer();
-    
-    // 5. Initialize CTF checker
+
+    // 4b. Restore post from URL hash on refresh (e.g. #post-3)
+    const hash = window.location.hash;
+    if (hash && hash.startsWith("#post-")) {
+        const postId = hash.replace("#post-", "");
+        // Small delay to let DOM fully settle before opening drawer
+        setTimeout(() => openReaderDrawer(postId), 150);
+    }
+
+
     initCtfForm();
  
     // 6. Fetch HTB and THM statistics
