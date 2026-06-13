@@ -1,6 +1,31 @@
 /**
  * Sliding Reader Drawer UI Logic
  */
+
+/**
+ * Listen for Giscus metadata messages to grab GitHub username.
+ * Giscus emits a message with viewer info when data-emit-metadata="1".
+ * We use this to personalise the terminal prompt.
+ */
+window.addEventListener("message", (event) => {
+    if (event.origin !== "https://giscus.app") return;
+    const data = event.data?.giscus;
+    if (!data) return;
+
+    // Giscus sends viewer login when metadata is enabled
+    const username = data?.discussion?.viewer?.login || data?.viewer?.login;
+    if (username) {
+        window.terminalUser = username;
+        // Update terminal title bar
+        const titleUser = document.getElementById("terminal-username");
+        if (titleUser) titleUser.textContent = username;
+        // Update terminal input prompt
+        const promptUser = document.getElementById("terminal-prompt-user");
+        if (promptUser) promptUser.textContent = username;
+    }
+});
+
+
 function initReaderDrawer() {
     const drawer = document.getElementById("reader-drawer");
     if (!drawer) return;
@@ -140,7 +165,7 @@ function loadGiscusComments() {
     script.setAttribute("data-mapping", "og:title");
     script.setAttribute("data-strict", "0");
     script.setAttribute("data-reactions-enabled", "1");
-    script.setAttribute("data-emit-metadata", "0");
+    script.setAttribute("data-emit-metadata", "1");
     script.setAttribute("data-input-position", "bottom");
     
     // Align comment theme with active portfolio theme

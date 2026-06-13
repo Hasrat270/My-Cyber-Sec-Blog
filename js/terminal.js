@@ -93,7 +93,8 @@ class TerminalSimulator {
         this.historyIndex = -1;
         
         // Echo input line
-        this.writeLine(`guest@hasrat-sec:~$ ${cmdLine}`, "terminal-echo");
+        const promptUser = window.terminalUser || "guest";
+        this.writeLine(`${promptUser}💀hasrat-blog:~$ ${cmdLine}`, "terminal-echo");
         this.input.value = "";
 
         // Parse args, collapsing multiple spaces
