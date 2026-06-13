@@ -77,7 +77,7 @@ function openReaderDrawer(postId) {
     `;
 
     // Set dynamic tab title to current post
-    document.title = `${post.title} // Hasrat.SEC`;
+    document.title = `${post.title} | Hasrat Blog`;
 
     // Open drawer
     drawer.setAttribute("aria-hidden", "false");
