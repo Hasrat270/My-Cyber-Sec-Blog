@@ -128,7 +128,7 @@ class TerminalSimulator {
                 break;
             case "posts":
                 this.writeLine("=== SECURITY WRITEUPS ===", "text-accent");
-                const sortedKeys = Object.keys(POSTS_DATA).sort((a, b) => Number(b) - Number(a));
+                const sortedKeys = Object.keys(POSTS_DATA).sort((a, b) => POSTS_DATA[b].id - POSTS_DATA[a].id);
                 sortedKeys.forEach((id, index) => {
                     const post = POSTS_DATA[id];
                     this.writeLine(`  [${index + 1}] ${post.title} (${post.date})`);
@@ -144,7 +144,7 @@ class TerminalSimulator {
                     this.writeLine("  SYNT{n1jnlf_purpx_gur_pbafbyr}", "text-accent");
                     this.writeLine("Decrypt the flag and submit it using the submit input at the bottom of the page, or run 'flag [FLAG_VALUE]' here.");
                 } else {
-                    const keys = Object.keys(POSTS_DATA).sort((a, b) => Number(b) - Number(a));
+                    const keys = Object.keys(POSTS_DATA).sort((a, b) => POSTS_DATA[b].id - POSTS_DATA[a].id);
                     const indexVal = parseInt(args[1], 10);
                     let targetId = null;
 

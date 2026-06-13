@@ -2,7 +2,8 @@
  * Blog Writeups & Research database
  */
 const POSTS_DATA = {
-    "1": {
+    "edr-evasion-syscalls": {
+        id: 4,
         title: "EDR Evasion: Subverting User-Mode Hooks via Direct System Calls (Syscalls)",
         date: "June 12, 2026",
         readTime: "15 min read",
@@ -114,7 +115,8 @@ int main() {
             <p>Instead of executing the <code>syscall</code> instruction in our assembly stub, we jump (<code>jmp</code>) directly to the memory address of a legitimate <code>syscall</code> instruction within the unhooked portion of <code>ntdll.dll</code> itself. This forces the stack backtrace to show that the call originated from inside <code>ntdll.dll</code>, satisfying EDR return-address check validations.</p>
         `
     },
-    "2": {
+    "prototype-pollution-rce": {
+        id: 3,
         title: "Node.js Prototype Pollution: Escalating to Remote Code Execution (RCE) via Gadget Chains",
         date: "May 29, 2026",
         readTime: "12 min read",
@@ -210,7 +212,8 @@ spawn('node', ['script.js'], {});</code></pre>
             </ul>
         `
     },
-    "3": {
+    "active-directory-rbcd": {
+        id: 2,
         title: "Active Directory: Deep Dive into Resource-Based Constrained Delegation (RBCD) Exploitation",
         date: "April 20, 2026",
         readTime: "12 min read",
@@ -269,7 +272,8 @@ Set-DomainObject -Identity "SRV-01" -Set @{'msds-allowedtoactonbehalfofotheriden
             </ul>
         `
     },
-    "4": {
+    "format-string-vulnerabilities": {
+        id: 1,
         title: "Format String Vulnerabilities: Achieving Arbitrary Read/Write and RCE in Modern Linux Binaries",
         date: "March 18, 2026",
         readTime: "14 min read",

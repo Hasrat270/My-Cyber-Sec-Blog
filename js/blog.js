@@ -13,8 +13,8 @@ function renderBlogPosts() {
     // Filter posts from POSTS_DATA
     const keys = Object.keys(POSTS_DATA);
     
-    // Sort keys descending (assuming higher ID is newer)
-    const sortedKeys = keys.sort((a, b) => Number(b) - Number(a));
+    // Sort keys descending by internal id (higher id is newer)
+    const sortedKeys = keys.sort((a, b) => POSTS_DATA[b].id - POSTS_DATA[a].id);
 
     const filteredKeys = sortedKeys.filter(id => {
         const post = POSTS_DATA[id];
