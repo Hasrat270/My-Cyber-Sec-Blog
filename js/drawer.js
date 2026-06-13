@@ -130,7 +130,7 @@ function loadGiscusComments() {
     script.setAttribute("data-category", "Announcements");
     script.setAttribute("data-category-id", "DIC_kwDOS46uY84C_Cap");
     
-    script.setAttribute("data-mapping", "pathname");
+    script.setAttribute("data-mapping", "og:title");
     script.setAttribute("data-strict", "0");
     script.setAttribute("data-reactions-enabled", "1");
     script.setAttribute("data-emit-metadata", "0");
@@ -147,6 +147,7 @@ function loadGiscusComments() {
     script.setAttribute("data-theme", giscusTheme);
     
     script.setAttribute("data-lang", "en");
+    script.async = true;
 
     container.appendChild(script);
 }
